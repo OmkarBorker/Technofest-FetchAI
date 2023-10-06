@@ -26,6 +26,4 @@ This project is a Temperature Alert Agent that uses the uAgent library to connec
 - uAgent library
 - Free weather API
 
-## License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
