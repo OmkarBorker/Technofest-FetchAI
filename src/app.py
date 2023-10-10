@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
+import requests
 
-app = Flask(__name__)
+from uagents import Agent, Bureau, Context, Model
+
+app = Flask(__name__,template_folder='frontEnd')
 
 @app.route('/')
 def index():
@@ -14,11 +17,19 @@ def submit():
         max_temperature = request.form['maxTemperature']
         min_temperature = request.form['minTemperature']
 
-        # Perform some operation with the form data (you can replace this with your logic)
-        result = f'Max temperature for {location}: {max_temperature}°C, Min temperature: {min_temperature}°C'
+        data = {
+            'location': location,
+            'min_temp': min_temperature,
+            'max_temp': max_temperature,
+        }
 
-        # Render the result page with the obtained result
-        return render_template('result.html', result=result)
+        agent_script_url = 'http://localhost:8000' 
+        response = requests.post(agent_script_url, json=data)
+
+        if response.status_code == 200:
+            return render_template('results.html', result='Agent triggered successfully')
+        else:
+            return render_template('results.html', result='Failed to trigger agent')
 
 if __name__ == '__main__':
     app.run(debug=True)
