@@ -5,7 +5,7 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 ## Requirements
 
 - [uAgent library](https://github.com/example/uAgent)
-- Free weather API access
+- Open weather API access
 - User's preferred temperature range and location
 
 ## Installation
