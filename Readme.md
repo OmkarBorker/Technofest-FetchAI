@@ -13,7 +13,6 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/temperature-alert-agent.git
-   cd temperature-alert-agent
    poetry install
    poetry shell
    ```
@@ -54,6 +53,6 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 ## Credits
 
 - [uAgent library](https://github.com/example/uAgent)
-- Free weather API
+- openweatherapi
 
 Feel free to contribute and enhance the functionality of this Temperature Alert Agent!
