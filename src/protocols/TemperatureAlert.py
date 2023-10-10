@@ -25,11 +25,11 @@ async def displayTempAlert(ctx: Context,sender:str, msg: Message) -> None:
         mail_sender = MailSender(
             smtp_server="smtp.gmail.com",
             smtp_port=587,
-            smtp_password="Aryan91003@06",
-            sender_email="aryanshr91003@gmail.com"
+            smtp_password="",
+            sender_email=""
         )
         try:
-            await mail_sender.send_email(subject='Temperature Alert', body=f"Temperature Alert: {alert}", receiver_email='aryashrivastav603@gmail.com')
+            await mail_sender.send_email(subject='Temperature Alert', body=f"Temperature Alert: {alert}", receiver_email='')
         except Exception as e:
             ctx.logger.error(f"Failed to send email: {str(e)}")
         ctx.logger.info(f"Temperature Alert: {alert}")
