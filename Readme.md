@@ -54,5 +54,3 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 
 - [uAgent library](https://github.com/example/uAgent)
 - openweatherapi
-
-Feel free to contribute and enhance the functionality of this Temperature Alert Agent!
