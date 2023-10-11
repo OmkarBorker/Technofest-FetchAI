@@ -46,6 +46,7 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
    on other terminal
    ```bash
    python app.py
+   then open http://127.0.0.1:5000 in any browser
    ```
 
 3. **Wait for the agent to fetch real-time temperatures:**
