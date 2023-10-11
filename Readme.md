@@ -1,11 +1,11 @@
-# Temperature Alert Agent
+# Temperature Alert Agent Hack-230395
 
 This Temperature Alert Agent utilizes the uAgent library to connect to a free weather API, fetching real-time temperatures for a user-specified location. Users can set their preferred temperature range and location, and the agent will send an alert/notification when the current temperature in the chosen location falls below the minimum or exceeds the maximum threshold.
 
 ## Requirements
 
 - [uAgent library](https://github.com/example/uAgent)
-- Free weather API access
+- Open weather API access
 - User's preferred temperature range and location
 
 ## Installation
@@ -13,7 +13,6 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/temperature-alert-agent.git
-   cd temperature-alert-agent
    poetry install
    poetry shell
    ```
@@ -54,6 +53,4 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 ## Credits
 
 - [uAgent library](https://github.com/example/uAgent)
-- Free weather API
-
-Feel free to contribute and enhance the functionality of this Temperature Alert Agent!
+- openweatherapi
