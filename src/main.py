@@ -1,43 +1,52 @@
-from uagents import Agent, Bureau, Context, Model
-from models.models import Message
-from protocols import TemperatureFetch, TemperatureAlert
+from uagents import Agent,Bureau, Context, Model
 from uagents.setup import fund_agent_if_low
-import asyncio
+import requests
+import json
+from protocols.TempFetch import fetch_proto, Fetch
+from models.models import Message
 
-# User input for temperature alert settings
-# location = input("Enter Location ")
-# min_temp = float(input("Enter Minimum Temperature "))
-# max_temp = float(input("Enter Maximum Temperature "))
-# mail = input("Enter Email ")
+mainAgent = Agent(name="mainAgent", seed="mainAgent_seed", endpoint=["http://127.0.0.1:8001/submit"], port=8001)
 
-# Create the main agent
-mainAgent = Agent(name="mainAgent", seed="mainAgent_seed", endpoint={"http://localhost:8002":{}}, port=8002)
-
-# Fund the main agent if its wallet balance is low
 fund_agent_if_low(mainAgent.wallet.address())
 
-# Event handler for the main agent startup
-# @mainAgent.on_event("startup")
-# async def sendData(ctx: Context) -> None:
-#     # Send temperature alert settings to the TemperatureFetch agent
-#     await ctx.send(destination=TemperatureFetch.fetch_agent.address, message=Message(message=f"{location} {min_temp} {max_temp} {mail}"))
+def read_from_json(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File {file_path} not found.")
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON from file: {str(e)}")
+        return {} 
+
+DATA = Fetch(location = "Mumbai", min_temp = 10, max_temp = 20, mail = "aryanshrivastav603@gmail.com")
+
+mainAgent._storage.set("DATA", DATA.dict())
+
+@mainAgent.on_interval(10)
+async def sendData(ctx:Context):
+    storage_file = "src/data/data.json"
+    try:
+        data = read_from_json(storage_file)
+        ctx.logger.info(f"Read data from file: {data}")
+
+        # Process the data as needed
+        # For example, send a message to fetch_proto
+        await ctx.send(destination=fetch_proto.address, message=Message(message=f"{data['location']} {data['min_temp']} {data['max_temp']} {data['email']}"))
+    except FileNotFoundError:
+        ctx.logger.warning(f"File {storage_file} not found.")
+
 
 @mainAgent.on_message(model=Message)
-async def sendData(ctx: Context, sender: str, msg: Message) -> None:
-    data = msg.message.split(" ")
-    location = data[0]
-    min_temp = float(data[1])
-    max_temp = float(data[2])
-    mail = data[3]
-    await ctx.send(destination=TemperatureFetch.fetch_agent.address, message=Message(message=f"{location} {min_temp} {max_temp} {mail}"))
+async def receive(ctx: Context, sender: str, msg: Message) -> None:
+    ctx.logger.info(f"Received message from {sender}: {msg}")
+    requests.post("http://127.0.0.1:5000", {"message": msg.message})
 
-# Create a bureau to manage multiple agents
+
 bureau = Bureau()
-
-# Add agents to the bureau
-bureau.add(TemperatureFetch.fetch_agent)
-bureau.add(TemperatureAlert.temp_alert)
+bureau.add(fetch_proto)
 bureau.add(mainAgent)
-# Run the bureau
+
 if __name__ == "__main__":
-    bureau.run()
+    bureau.run() 
