@@ -32,7 +32,7 @@ def check_temp(temp, min_temp, max_temp) -> str:
     return msg
 
 # Create an instance of the temp_alert agent
-temp_alert = Agent(name="temp_alert", seed="temp_alert_seed", endpoint=["http://localhost:8001"], port=8001)
+temp_alert = Agent(name="temp_alert", seed="temp_alert_seed", endpoint={"http://localhost:8001":{}}, port=8001)
 
 # Fund the agent if its wallet balance is low
 fund_agent_if_low(temp_alert.wallet.address())

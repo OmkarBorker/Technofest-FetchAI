@@ -1,0 +1,8 @@
+{
+    "DATA": {
+        "min_temp": 10.0,
+        "max_temp": 20.0,
+        "mail": "aryanshrivastav603@gmail.com",
+        "location": "Mumbai"
+    }
+}

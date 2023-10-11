@@ -14,7 +14,7 @@
     <div class="bg-white p-8 rounded shadow-md w-96">
         <h1 class="text-2xl font-semibold mb-6">Weather Form</h1>
 
-        <form action="/submit" method="post">
+        <form action="{{ url_for('submit')}}" method="post">
             <!-- Email Input -->
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-600">Email</label>

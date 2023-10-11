@@ -25,6 +25,7 @@ class TemperatureAlertAgent(Agent):
         """
         super().__init__(name=name, seed=seed, endpoint=endpoint, port=port)
         self.api_key = api_key
+        self.location=""
 
     def storeData(self, location: str, min_temp: float, max_temp: float, mail: str) -> None:
         """
@@ -77,7 +78,7 @@ class TemperatureAlertAgent(Agent):
         return f"Temperature in {self.location} is {temp} °C"
 
 # Create an instance of the TemperatureAlertAgent
-fetch_agent = TemperatureAlertAgent(name="fetch_agent", seed="alert_agent_seed", api_key=os.getenv("OPW"), endpoint=["http://localhost:8000"], port=8000)
+fetch_agent = TemperatureAlertAgent(name="fetch_agent", seed="alert_agent_seed", api_key=os.getenv("OPW"), endpoint={"http://localhost:8000":{}}, port=8000)
 
 # Fund the agent if its wallet balance is low
 fund_agent_if_low(fetch_agent.wallet.address())
@@ -93,7 +94,7 @@ async def receive(ctx: Context, sender: str, msg: Message) -> None:
     fetch_agent.storeData(location, min_temp, max_temp, mail)
 
 # Define periodic temperature display
-@fetch_agent.on_interval(3600.0)
+@fetch_agent.on_interval(3.0)
 async def display(ctx: Context):
     msg = await fetch_agent.display_temperature(ctx)
 
