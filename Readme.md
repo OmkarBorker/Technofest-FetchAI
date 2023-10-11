@@ -41,7 +41,7 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 
 1. **Run the Temperature Alert Agent:**
    ```bash
-   python index.py
+   python main.py
    ```
    on other terminal
    ```bash
