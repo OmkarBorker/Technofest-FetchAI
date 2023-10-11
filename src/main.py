@@ -24,7 +24,7 @@ DATA = Fetch(location = "Mumbai", min_temp = 10, max_temp = 20, mail = "aryanshr
 
 mainAgent._storage.set("DATA", DATA.dict())
 
-@mainAgent.on_interval(10)
+@mainAgent.on_interval(600)
 async def sendData(ctx:Context):
     storage_file = "src/data/data.json"
     try:

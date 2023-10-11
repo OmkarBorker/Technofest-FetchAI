@@ -41,14 +41,18 @@ This Temperature Alert Agent utilizes the uAgent library to connect to a free we
 
 1. **Run the Temperature Alert Agent:**
    ```bash
-   python main.py
+   python index.py
+   ```
+   on other terminal
+   ```bash
+   python app.py
    ```
 
-2. **Wait for the agent to fetch real-time temperatures:**
+3. **Wait for the agent to fetch real-time temperatures:**
    - The agent will connect to the weather API and display the current temperature.
 
-3. **Receive an alert/notification:**
-   - If the temperature goes below the set minimum or above the set maximum, an email alert will be sent to the specified email address.
+4. **Receive an alert/notification:**
+   - If the temperature goes below the set minimum or above the set maximum, an email alert will be sent to the specified email address every 10min.
 
 ## Credits
 

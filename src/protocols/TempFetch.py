@@ -22,7 +22,6 @@ fetch_proto = Agent(name = "fetch_proto", seed = "fetch_proto_seed", endpoint = 
 
 @fetch_proto.on_message(model= Message, replies=Message)
 async def fetch_temp(ctx: Context, sender: str, msg: Message):
-    ctx.logger.info(f"Received message from {sender}: {msg}")
     msg = msg.message.split(" ")
     location = msg[0]
     min_temp = float(msg[1])
@@ -40,7 +39,6 @@ async def fetch_temp(ctx: Context, sender: str, msg: Message):
         response.raise_for_status()
         data = response.json()
         temp = data["main"]["temp"]
-        ctx.logger.info(f"{os.getenv('SMTP_PASSWORD')},{os.getenv('SENDER_EMAIL')}")
         if temp < min_temp:
             msg = f"Temperature is below minimum threshold ({min_temp} °C): {temp} °C"
             mail_sender.send_email(
